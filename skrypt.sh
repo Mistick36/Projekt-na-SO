@@ -19,8 +19,13 @@ do
 			;;
 		s)
 			ls -a /bin > tekst1.txt # tworzy plik tekst1.txt oraz zapisuje do niego wynik polecenia ls -a
-			chmod a+x tekst1.txt # nadaje prawa do pliku tekst1.txt aby mozna bylo go wyslac
-			mail -s "Mail na projekt" mistick0406@gmail.com < tekst1.txt # wysyla plik tekst1.txt na mojego maila
+			tail -n +3 tekst1.txt > tekst1.tmp && mv tekst1.tmp tekst1 # usuwa . .. z poczatku wyniku poniewaz jak jest to na poczatku tekstu to z jakiegos powodu nic nie wysyla oraz wprowadza nawa wartosc do tymczasowego pliku tekst1
+			echo "Podaj tytul maila"
+			read TITLE # zmienna ktora nadaje tytul emaila
+			echo "Podaj emaila na ktorego zostanie wyslany wynik zadania" 
+			read EMAIL # zmienna ktora odczytuje na jaki email ma byc wyslany wynik
+			mail -s "$TITLE" $EMAIL < tekst1 # wysyla wynik zadania
+			rm tekst1 # usuwa tymczasowy plik
 			;;
 		e)	
 			ls -a /etc/[a]* # wyswietla na ekranie zawartosc wszystkich plikow zaczynajacych sie na "a"
